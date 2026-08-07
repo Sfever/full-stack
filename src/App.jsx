@@ -4,6 +4,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import GamePage from './GamePage.jsx'
+import Chatbot from './chatbot'
 import './App.css'
 
 function Home() {
@@ -132,6 +133,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/games/:slug" element={<DedicatedGameRoute />} />
+      <Route path="/chat" element={<Chatbot />} />
     </Routes>
   )
 }
