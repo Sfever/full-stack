@@ -170,7 +170,7 @@ function PressKitPage() {
                 <span>
                   {question.length}/{questionMaxLength}
                 </span>
-                <button type="submit" disabled={isSubmitting}>
+                <button className="btn btn-primary" type="submit" disabled={isSubmitting}>
                   {isSubmitting ? 'Submitting…' : 'Submit question'}
                 </button>
               </div>

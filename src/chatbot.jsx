@@ -51,7 +51,7 @@ function Chatbot() {
     <main className="chat-page">
       <section className="chat-shell" aria-labelledby="chat-title">
         <header className="chat-header">
-          <p className="chat-eyebrow">Game Quest assistant</p>
+          <p className="chat-eyebrow">Video Forge Studios Assistant</p>
           <h2 id="chat-title" className="chat-title">
             Chatbot
           </h2>

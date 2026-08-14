@@ -34,7 +34,7 @@ function SiteNavbar({ count = 0 }) {
   return (
     <Navbar bg="dark" variant="dark" expand="sm" sticky="top">
       <Container>
-        <Navbar.Brand href="/">Game Quest</Navbar.Brand>
+        <Navbar.Brand href="/">Video Forge Studios</Navbar.Brand>
 
         <Navbar.Toggle aria-controls="main-nav" />
 
@@ -177,7 +177,7 @@ function Home() {
               Independent game studio
             </p>
 
-            <h1 className="display-4 fw-bold">Game Quest</h1>
+            <h1 className="display-4 fw-bold">Video Forge Studios</h1>
 
             <Button href="/games" variant="primary" size="lg" className="mt-3">
               Browse Our Games
@@ -279,7 +279,7 @@ function Home() {
 
       <footer className="bg-dark text-light py-4">
         <Container className="d-flex justify-content-between">
-          <small>© 2026 Game Quest</small>
+          <small>© 2026 Video Forge Studios</small>
 
           <small>All rights reserved</small>
         </Container>

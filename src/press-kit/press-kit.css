@@ -150,3 +150,33 @@
     flex-direction: column;
   }
 }
+
+.btn {
+  --bs-btn-border-radius: 10px;
+  font-weight: 500;
+  transition:
+    background-color 0.2s var(--ease),
+    border-color 0.2s var(--ease),
+    box-shadow 0.2s var(--ease),
+    transform 0.2s var(--ease);
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  --bs-btn-bg: var(--cool);
+  --bs-btn-border-color: var(--cool);
+  --bs-btn-color: #05121c;
+  --bs-btn-hover-bg: var(--cool-bright);
+  --bs-btn-hover-border-color: var(--cool-bright);
+  --bs-btn-hover-color: #05121c;
+  --bs-btn-active-bg: var(--cool);
+  --bs-btn-active-border-color: var(--cool);
+  --bs-btn-active-color: #05121c;
+}
+
+.btn-primary:hover {
+  box-shadow: var(--glow);
+}
