@@ -64,7 +64,7 @@ function AuthPage({ mode }) {
           <h1>{isRegistration ? 'Create your account' : 'Welcome back'}</h1>
           <p>
             {isRegistration
-              ? 'Register to manage your profile and future wishlists.'
+              ? 'Register to create and manage your profile.'
               : 'Sign in with the email attached to your account.'}
           </p>
         </div>

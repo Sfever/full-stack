@@ -24,13 +24,12 @@ import {
 import Chatbot from './chatbot'
 import GameIndexPage from './game.pages/GameIndexPage.jsx'
 import GamePage from './game.pages/GamePage.jsx'
-import WishlistPurchase from './wishlistandpurchases/wishlist_purchase.jsx'
 import { PressKitManagePage, PressKitPage } from './press-kit/index.js'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './auth/auth.css'
 import './App.css'
 
-function SiteNavbar({ count = 0 }) {
+function SiteNavbar() {
   return (
     <Navbar bg="dark" variant="dark" expand="sm" sticky="top">
       <Container>
@@ -46,16 +45,6 @@ function SiteNavbar({ count = 0 }) {
             <Nav.Link href="/chat">Chat</Nav.Link>
           </Nav>
 
-          <Navbar.Text className="me-3" aria-live="polite">
-            {count === 0 ? (
-              'No wishlist'
-            ) : (
-              <>
-                Wishlist <Badge bg="primary">{count}</Badge>
-              </>
-            )}
-          </Navbar.Text>
-
           <Navbar.Text>
             <AuthStatus />
           </Navbar.Text>
@@ -65,7 +54,7 @@ function SiteNavbar({ count = 0 }) {
   )
 }
 
-function GameAd({ eyebrow, game, pitch, isWishlisted, onToggle, children }) {
+function GameAd({ eyebrow, game, pitch, children }) {
   return (
     <Card className="mb-4">
       <Row className="g-0">
@@ -96,15 +85,6 @@ function GameAd({ eyebrow, game, pitch, isWishlisted, onToggle, children }) {
             <Stack direction="horizontal" gap={2}>
               <Button href={`/games/${game.slug}`} variant="primary">
                 See {game.title}
-              </Button>
-
-              <Button
-                variant={isWishlisted ? 'warning' : 'outline-secondary'}
-                active={isWishlisted}
-                aria-pressed={isWishlisted}
-                onClick={onToggle}
-              >
-                {isWishlisted ? '★ Wishlisted' : '☆ Wishlist'}
               </Button>
 
               {children}
@@ -145,30 +125,15 @@ function Home() {
     return pool[Math.floor(Math.random() * pool.length)].slug
   }
 
-  const [wishlisted, setWishlisted] = useState(() => new Set())
   const [spotlightSlug, setSpotlightSlug] = useState(() =>
     pickRandomSlug(featured.slug),
   )
 
   const spotlight = games.find((game) => game.slug === spotlightSlug)
 
-  function toggleWishlist(slug) {
-    setWishlisted((prev) => {
-      const next = new Set(prev)
-      if (next.has(slug)) {
-        next.delete(slug)
-      } else {
-        next.add(slug)
-      }
-      return next
-    })
-  }
-
-  const count = wishlisted.size
-
   return (
     <>
-      <SiteNavbar count={count} />
+      <SiteNavbar />
 
       <Container className="py-5" id="main">
         <Row className="align-items-center mb-5">
@@ -200,16 +165,12 @@ function Home() {
           eyebrow="Featured"
           game={featured}
           pitch="Six survivors, one working evacuation route, and ash falling fast enough to bury the map in nine minutes."
-          isWishlisted={wishlisted.has(featured.slug)}
-          onToggle={() => toggleWishlist(featured.slug)}
         />
 
         <GameAd
           eyebrow="Random pick"
           game={spotlight}
           pitch="Never played this one? Neither had most people. Take a look."
-          isWishlisted={wishlisted.has(spotlight.slug)}
-          onToggle={() => toggleWishlist(spotlight.slug)}
         >
           <Button
             variant="outline-primary"
@@ -221,59 +182,38 @@ function Home() {
 
         <h2 className="mt-5 mb-1">Our games</h2>
 
-        <p className="text-muted" aria-live="polite">
-          {count === 0 ? 'Nothing wishlisted yet' : `${count} wishlisted`}
-        </p>
-
         <Row xs={1} md={3} className="g-4">
-          {games.map((game) => {
-            const isWishlisted = wishlisted.has(game.slug)
+          {games.map((game) => (
+            <Col key={game.slug}>
+              <Card className="h-100">
+                <Card.Img
+                  variant="top"
+                  src={game.art}
+                  alt=""
+                  width="320"
+                  height="180"
+                />
 
-            return (
-              <Col key={game.slug}>
-                <Card className="h-100">
-                  <Card.Img
-                    variant="top"
-                    src={game.art}
-                    alt=""
-                    width="320"
-                    height="180"
-                  />
+                <Card.Body className="d-flex flex-column">
+                  <Card.Title as="h3" className="h5">
+                    {game.title}
+                  </Card.Title>
 
-                  <Card.Body className="d-flex flex-column">
-                    <Card.Title as="h3" className="h5">
-                      {game.title}
-                    </Card.Title>
+                  <Badge bg="secondary" className="align-self-start mb-3">
+                    {game.status}
+                  </Badge>
 
-                    <Badge bg="secondary" className="align-self-start mb-3">
-                      {game.status}
-                    </Badge>
-
-                    <Stack direction="horizontal" gap={2} className="mt-auto">
-                      <Button
-                        href={`/games/${game.slug}`}
-                        variant="link"
-                        className="px-0"
-                      >
-                        View details
-                      </Button>
-
-                      <Button
-                        variant={isWishlisted ? 'warning' : 'outline-secondary'}
-                        size="sm"
-                        active={isWishlisted}
-                        aria-pressed={isWishlisted}
-                        onClick={() => toggleWishlist(game.slug)}
-                        className="ms-auto"
-                      >
-                        {isWishlisted ? '★' : '☆'}
-                      </Button>
-                    </Stack>
-                  </Card.Body>
-                </Card>
-              </Col>
-            )
-          })}
+                  <Button
+                    href={`/games/${game.slug}`}
+                    variant="link"
+                    className="px-0 mt-auto align-self-start"
+                  >
+                    View details
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
         </Row>
       </Container>
 
@@ -306,7 +246,6 @@ function App() {
       <Route path="/blog/:slug" element={<BlogArticlePage />} />
       <Route path="/login" element={<AuthPage key="login" mode="login" />} />
       <Route path="/register" element={<AuthPage key="register" mode="register" />} />
-      <Route path="/wishlist" element={<WishlistPurchase />} />
       <Route path="/press-kit" element={<PressKitPage />} />
       <Route path="/press-kit/manage" element={<PressKitManagePage />} />
     </Routes>
