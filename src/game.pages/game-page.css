@@ -16,7 +16,7 @@
 
 
 .game-theme-violet {
-  --game-accent: #7eff72;
+  --game-accent: #b9a4ff;
 }
 
 
@@ -45,6 +45,12 @@
   justify-content: space-between;
   gap: 24px;
   border-bottom: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 
@@ -73,6 +79,135 @@
 
 .game-header nav a:hover {
   color: var(--game-accent);
+}
+
+
+/* Match the homepage navbar. */
+.game-header {
+  min-height: 56px;
+  padding: 8px max(20px, calc((100vw - 1140px) / 2 + 12px));
+  gap: 24px;
+  border-bottom: 1px solid var(--border);
+  background-color: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.game-brand {
+  min-height: 40px;
+  display: grid;
+  align-content: center;
+  color: #fff !important;
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0.4px;
+}
+
+.game-header nav {
+  align-items: center;
+  gap: 0;
+}
+
+.game-header nav a {
+  min-height: 40px;
+  padding: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 0;
+  color: rgba(255, 255, 255, 0.85);
+  background: transparent;
+  box-shadow: none;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  transform: none;
+  transition: color 0.2s var(--ease);
+}
+
+.game-header nav a:hover,
+.game-header nav a:focus-visible {
+  border: 0;
+  color: var(--cool);
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
+.game-header nav a.active {
+  border: 0;
+  color: #fff;
+  background: transparent;
+  box-shadow: none;
+}
+
+.game-header nav a:focus-visible {
+  outline: 2px solid var(--cool);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (max-width: 800px) {
+  .game-header {
+    min-height: 56px;
+    padding: 8px 20px;
+    gap: 4px;
+  }
+
+  .game-header nav {
+    flex-wrap: nowrap;
+  }
+
+  .game-header nav a:not(:first-child) {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-header nav a {
+    padding-inline: 8px;
+    font-size: 14px;
+  }
+}
+
+
+/* Rounded navigation bubbles. */
+.game-header nav {
+  gap: 4px;
+}
+
+.game-header nav a {
+  padding: 8px 12px;
+  border: 1px solid var(--accent-border);
+  border-radius: 6px;
+  color: #fff;
+  background: var(--accent-bg);
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1.2;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.game-header nav a:hover,
+.game-header nav a:focus-visible {
+  border: 1px solid var(--accent);
+  color: #fff;
+  background: var(--accent-bg);
+  transform: translateY(-1px);
+}
+
+.game-header nav a.active {
+  border: 1px solid var(--accent);
+  color: #fff;
+  background: var(--accent-bg);
+  box-shadow: 0 0 0 1px var(--accent-border);
 }
 
 

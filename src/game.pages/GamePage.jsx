@@ -82,7 +82,7 @@ export default function GamePage({ slug }) {
 export function GameHeader() {
   return (
     <header className="game-header">
-      <Link className="game-brand" to="/games">
+      <Link className="game-brand" to="../">
         Video Forge Studios
       </Link>
       <nav aria-label="Game pages">
