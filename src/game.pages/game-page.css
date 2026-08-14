@@ -16,12 +16,12 @@
 
 
 .game-theme-violet {
-  --game-accent: #b9a4ff;
+  --game-accent: var(--warm);
 }
 
 
 .game-theme-ember {
-  --game-accent: var(--warm);
+  --game-accent: var(--cool);
 }
 
 
