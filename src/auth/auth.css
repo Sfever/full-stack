@@ -12,7 +12,10 @@
   padding: 32px;
   border: 1px solid var(--border);
   border-radius: 12px;
-  background: var(--social-bg);
+  background: var(--panel);
+  backdrop-filter: blur(12px);
+  text-align: left;
+  box-shadow: var(--shadow-lg);
   text-align: left;
   box-shadow: var(--shadow);
 }
@@ -57,7 +60,7 @@
     width: 100%;
     min-height: 44px;
     padding: 9px 12px;
-    border: 1px solid var(--border);
+     background: rgba(255, 255, 255, 0.05);
     border-radius: 6px;
     color: var(--text-h);
     background: var(--bg);
@@ -114,8 +117,7 @@
 }
 
 .auth-error {
-  color: #c24141;
-  font-size: 15px;
+   color: var(--danger);
 }
 
 .auth-switch {

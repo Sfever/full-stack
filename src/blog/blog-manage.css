@@ -40,8 +40,7 @@
 }
 
 .blog-preview-panel {
-  min-width: 0;
-  overflow: hidden;
+  background: var(--panel);
 }
 
 .blog-preview-panel > .blog-panel-heading,
@@ -79,7 +78,7 @@
   border-radius: 6px;
   box-sizing: border-box;
   color: var(--text-h);
-  background: var(--bg);
+   background: rgba(255, 255, 255, 0.05);
   font: inherit;
 }
 
@@ -104,12 +103,11 @@
 }
 
 .blog-field .blog-cover-error {
-  color: #c24141;
+  color: var(--danger);
 }
 
 .blog-field .blog-cover-verified {
-  color: #2f855a;
-  font-weight: 700;
+   color: var(--success);
 }
 
 .blog-primary-button,
@@ -237,9 +235,9 @@
 }
 
 .blog-management-actions .blog-delete-button {
-  border-color: color-mix(in srgb, #c24141 50%, var(--border));
-  color: #c24141;
-  background: color-mix(in srgb, #c24141 9%, var(--bg));
+  border-color: color-mix(in srgb, var(--danger) 50%, var(--border));
+  color: var(--danger);
+  background: rgba(255, 128, 128, 0.12);
 }
 
 .blog-empty-row {

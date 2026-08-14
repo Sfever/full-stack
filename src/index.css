@@ -1,43 +1,77 @@
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
-    
-   /* --- Added: spacing scale -------------------------------------------- */
+  /* --- brand ---------------------------------------------------------- */
+  --cool: #8ecdf7;
+  --cool-bright: #b6e0fb;
+  --warm: #ff9d5c;
+  --warm-bright: #ffb98a;
+
+  /* --- text ----------------------------------------------------------- */
+  --text: #ffffff;
+  --text-h: #ffffff;
+  --text-strong: #ffffff;
+  --text-dim: rgba(255, 255, 255, 0.64);
+
+  /* --- surfaces ------------------------------------------------------- */
+  --bg: #000000;
+  --border: rgba(255, 255, 255, 0.14);
+  --code-bg: rgba(255, 255, 255, 0.06);
+  --social-bg: rgba(255, 255, 255, 0.05);
+
+  --panel: rgba(255, 255, 255, 0.04);
+  --panel-hover: rgba(255, 255, 255, 0.08);
+  --panel-border: rgba(255, 255, 255, 0.12);
+  --panel-border-lit: rgba(255, 255, 255, 0.28);
+
+  /* --- accents -------------------------------------------------------- */
+  --accent: var(--cool);
+  --accent-hot: var(--warm);
+  --accent-bg: rgba(142, 205, 247, 0.12);
+  --accent-border: rgba(142, 205, 247, 0.45);
+  --game-accent: var(--cool);
+
+  --warm-bg: rgba(255, 157, 92, 0.14);
+  --warm-border: rgba(255, 157, 92, 0.45);
+  --warm-bg-hover: rgba(255, 157, 92, 0.26);
+
+  /* --- status --------------------------------------------------------- */
+  --danger: #ff8080;
+  --success: #6ee7a8;
+
+  /* --- depth ---------------------------------------------------------- */
+  --glow: 0 0 40px rgba(142, 205, 247, 0.25);
+  --glow-cool: 0 0 40px rgba(142, 205, 247, 0.25);
+  --glow-warm: 0 0 40px rgba(255, 157, 92, 0.25);
+  --gradient-brand: linear-gradient(100deg, var(--cool), var(--warm));
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.6);
+  --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.7),
+    0 4px 6px -2px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 24px 48px -12px rgba(0, 0, 0, 0.85);
+
+  /* --- spacing scale -------------------------------------------------- */
   --space-xs: 8px;
   --space-sm: 14px;
   --space-md: 24px;
   --space-lg: 40px;
   --space-xl: 72px;
 
-
-  /* --- Added: radii ----------------------------------------------------- */
+  /* --- radii ---------------------------------------------------------- */
   --radius-panel: 28px;
   --radius-card: 20px;
   --radius-inner: 14px;
 
- /* --- Added: panel surfaces -------------------------------------------- */
-  --panel: rgba(255, 255, 255, 0.72);
-  --panel-hover: rgba(255, 255, 255, 0.9);
-  --panel-border: rgba(8, 6, 13, 0.08);
-  --panel-border-lit: rgba(8, 6, 13, 0.16);
+  /* --- motion --------------------------------------------------------- */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 
-
+  /* --- type ----------------------------------------------------------- */
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --font-display: system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
- 
 
   font: 18px/145% var(--sans);
   letter-spacing: 0.18px;
-  color-scheme: light dark;
+  color-scheme: dark;
   color: var(--text);
   background: var(--bg);
   font-synthesis: none;
@@ -50,36 +84,55 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
+/* The theme is dark in both OS settings, so no light-mode branch. */
 
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+html {
+  background-color: var(--bg);
 }
 
+/* Baby blue and orange bloom in the four corners.
+
+   The gradients are painted on `body` rather than a negative-z-index
+   pseudo-element: `body` does not create a stacking context, so a
+   `z-index: -1` child would paint *behind* the black background and
+   disappear. `background-attachment: fixed` pins the bloom to the viewport
+   so it stays put while the page scrolls. */
 body {
   margin: 0;
+  min-height: 100svh;
+  color: var(--text);
+  background-color: var(--bg);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-image:
+    radial-gradient(
+      68vw 68vw at 0% 0%,
+      rgba(142, 205, 247, 0.42),
+      rgba(142, 205, 247, 0) 68%
+    ),
+    radial-gradient(
+      62vw 62vw at 100% 0%,
+      rgba(255, 157, 92, 0.3),
+      rgba(255, 157, 92, 0) 68%
+    ),
+    radial-gradient(
+      62vw 62vw at 0% 100%,
+      rgba(255, 157, 92, 0.34),
+      rgba(255, 157, 92, 0) 68%
+    ),
+    radial-gradient(
+      68vw 68vw at 100% 100%,
+      rgba(142, 205, 247, 0.36),
+      rgba(142, 205, 247, 0) 68%
+    );
 }
 
 #root {
-  width: 1126px;
+  width: 100%;
   max-width: 100%;
   margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
+  text-align: left;
+  background: transparent;
   min-height: 100svh;
   display: flex;
   flex-direction: column;
@@ -87,32 +140,90 @@ body {
 }
 
 h1,
-h2 {
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--heading);
-  font-weight: 500;
   color: var(--text-h);
+  text-transform: none;
+}
+
+h1,
+h2 {
+  font-weight: 500;
 }
 
 h1 {
   font-size: 56px;
   letter-spacing: -1.68px;
   margin: 32px 0;
+
   @media (max-width: 1024px) {
     font-size: 36px;
     margin: 20px 0;
   }
 }
+
 h2 {
   font-size: 24px;
   line-height: 118%;
   letter-spacing: -0.24px;
   margin: 0 0 8px;
+
   @media (max-width: 1024px) {
     font-size: 20px;
   }
 }
+
 p {
   margin: 0;
+}
+
+a {
+  color: var(--cool);
+  text-underline-offset: 3px;
+  transition: color 0.2s var(--ease);
+}
+
+a:hover {
+  color: var(--warm);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--cool);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: rgba(142, 205, 247, 0.3);
+  color: #fff;
+}
+
+/* Form controls default to white on white, which is unreadable here. */
+input,
+textarea,
+select {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: var(--space-md) 0;
 }
 
 code,

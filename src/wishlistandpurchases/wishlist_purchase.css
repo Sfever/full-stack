@@ -1,16 +1,4 @@
-/* ==========================================================================
-   wishlist_purchases.css — store / wishlist page
 
-   Every class here is prefixed `store-`. The previous sheet used bare names
-   (.button, .actions, .description, .eyebrow) that simple.css also declares
-   with the same values, which made the winning rule depend on which file
-   main.jsx imported last. Prefixing removes that collision entirely — nothing
-   in this file can be overridden by, or override, the other sheet.
-
-   Body background is deliberately not set here. The photograph paints from
-   index.css at z-index -3, which is behind body's own background; an opaque
-   fill on body hides it completely.
-   ========================================================================== */
 
 /* Fills the viewport and centres the split. `place-items: center` keeps the
    layout vertically centred on tall screens without needing a fixed height. */
@@ -89,6 +77,14 @@
   line-height: 1.65;
 }
 
+/* Live tally of wishlisted games. Dim and small — it is feedback, not a
+   heading, and it sits directly under prose that should stay dominant. */
+.store-count {
+  margin: var(--space-md) 0 0;
+  color: var(--text-dim);
+  font-size: 14px;
+}
+
 .store-actions {
   display: flex;
   gap: 12px;
@@ -124,7 +120,8 @@
 }
 
 .store-button-primary:hover {
-  background: rgba(249, 115, 22, 0.24);
+ /* line 123 — .store-button-primary:hover */
+  background: var(--warm-bg-hover);
   border-color: var(--accent-hot);
   box-shadow: var(--shadow), var(--glow);
 }
@@ -145,12 +142,28 @@
   outline-offset: 3px;
 }
 
+/* The bottom action sits outside the split, centred under both columns, so it
+   reads as belonging to the whole page rather than to either column. */
+.store-browse {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-lg);
+}
+
 /* --- Right column --------------------------------------------------------- */
 
-/* The frosted panel, now holding only the facts. Blurring the photograph
-   through the surface is what makes the panel sit on the page rather than on
-   top of it; a solid fill reads as a sticker. The blur is deliberately large
-   because the photo has fine detail that a thin blur turns into noise. */
+/* Three panels stacked. `gap` rather than margins on the panels themselves:
+   grid gap does not collapse, so the spacing stays predictable no matter how
+   many games the array holds. */
+.store-game-list {
+  display: grid;
+  gap: var(--space-md);
+}
+
+/* The frosted panel. Blurring the photograph through the surface is what makes
+   the panel sit on the page rather than on top of it; a solid fill reads as a
+   sticker. The blur is deliberately large because the photo has fine detail
+   that a thin blur turns into noise. */
 .store-facts {
   padding: var(--space-lg);
   background: var(--panel);
@@ -161,10 +174,63 @@
   box-shadow: var(--shadow-lg);
 }
 
+/* Each panel is a real <button> so Tab, Enter and Space work without a keydown
+   handler, and the .store-button:focus-visible ring applies. A button carries
+   centred text, its own font stack and a default cursor, all of which have to
+   be undone to keep it looking like the aside it replaced. */
+.store-facts-toggle {
+  width: 100%;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.store-facts-toggle:hover {
+  border-color: var(--accent-border);
+  box-shadow: var(--shadow-lg), var(--glow-cool);
+}
+
+/* Wishlisted state is warm-bordered and warm-glowing, matching the primary
+   button. The star glyph carries the same meaning in text, so the state is not
+   colour-only. */
+.store-facts-toggle.is-wishlisted {
+  border-color: var(--warm-border);
+  box-shadow: var(--shadow-lg), var(--glow);
+}
+
+.store-facts-toggle:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Title left, wishlist flag right, on one baseline. */
+.store-facts-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+/* A heading is invalid inside a button, so this is a span now. That means the
+   font-family and size index.css gives h2 no longer apply and have to be set
+   here. */
 .store-facts-title {
-  margin: 0 0 var(--space-md);
+  font-family: var(--font-display);
   font-size: 20px;
+  font-weight: 700;
   letter-spacing: 0.04em;
+  color: var(--text-strong);
+}
+
+.store-wish-flag {
+  flex: none;
+  color: var(--accent-hot);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .store-fact-list {
@@ -255,6 +321,18 @@
   .store-button {
     width: 100%;
     text-align: center;
+  }
+
+  .store-browse .store-button {
+    width: 100%;
+  }
+
+  /* The flag drops below the title rather than competing with it for a line
+     that is now barely wide enough for the title alone. */
+  .store-facts-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
   }
 
   /* The label column becomes a line of its own rather than holding 88px that
